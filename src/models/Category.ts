@@ -3,8 +3,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Column
-}from 'typeorm';
+  Column,
+  OneToMany,
+} from 'typeorm';
+import Transaction from './Transaction';
 
 @Entity('categories')
 class Category {
@@ -14,12 +16,14 @@ class Category {
   @Column()
   title: string;
 
+  @OneToMany(() => Transaction, transaction => transaction.category)
+  transactions: Transaction;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
-
 }
 
 export default Category;
